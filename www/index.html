@@ -17,7 +17,8 @@
 
     function fetchAll() {
       let TestDataClass = ncmb.DataStore(db);
-      TestDataClass.fetchAll()
+      //order("フィールド名", true(降順) or false(昇順))
+      TestDataClass.order("name", false).fetchAll()
         .then(function(results) {
           showResults(results);
         })

@@ -42,10 +42,19 @@
         })
     }
 
-    function searchLevelLT() {
+    function searchLevel_LT() {
         let TestDataClass = ncmb.DataStore(db);
-        let levelLT = parseInt($("#level").val());
-        TestDataClass.equalTo("level", level).fetchAll()
+        let level_LT = parseInt($("#level").val());
+        TestDataClass.lessThan("level", level_LT).fetchAll()
+        .then(function(results) {
+            showResults(results);
+        })
+    }
+
+    function searchLevel_GT() {
+        let TestDataClass = ncmb.DataStore(db);
+        let level_GT = parseInt($("#level").val());
+        TestDataClass.greaterThan("level", level_GT).fetchAll()
         .then(function(results) {
             showResults(results);
         })
@@ -87,10 +96,10 @@
   <div id="button">
     <button class="btn" onclick="fetchAll()">Fetch All</button>
     <button class="btn" onclick="searchName()">Name</button>
+    </br>
+    <button class="btn" onclick="searchLevel_LT()">Level &lt </button>
     <button class="btn" onclick="searchLevel()">Level</button>
-    <button class="btn" onclick="searchLevelLT()">Level &lt </button>
-    <button class="btn" onclick="searchLevelLT()">Level</button>
-    <button class="btn" onclick="searchLevelLT()">Level &gt </button>
+    <button class="btn" onclick="searchLevel_GT()">Level &gt </button>
   </div>
   <div id="message">message area</div>
 </body>

@@ -13,12 +13,12 @@
     // NCMB アクセスの準備
     let ncmb = new NCMB(appKey, clientKey);
     // 本アプリで使うクラスの指定。const は定数の宣言。変更できない変数と思えば良い。
-    const db = "m";
+    const db = "semicon";
 
     function fetchAll() {
-      let TestDataClass = ncmb.DataStore(db);
+      let semicon = ncmb.DataStore(db);
       //order("フィールド名", true(降順) or false(昇順))
-      TestDataClass.order("name", false).fetchAll()
+      semicon.order("term", false).fetchAll()
         .then(function(results) {
           showResults(results);
         })
@@ -60,20 +60,37 @@
         })
     }
 
+    function searchattack_LT() {
+        let TestDataClass = ncmb.DataStore(db);
+        let attack_LT = parseInt($("#attack").val());
+        TestDataClass.lessThan("attack", attack_LT).fetchAll()
+        .then(function(results) {
+            showResults(results);
+        })
+    }
+
+    function searchattack_GT() {
+        let TestDataClass = ncmb.DataStore(db);
+        let attack_GT = parseInt($("#attack").val());
+        TestDataClass.greaterThan("attack", attack_GT).fetchAll()
+        .then(function(results) {
+            showResults(results);
+        })
+    }
+
 
 
 
 
     function showResults(results) {
       // テーブルのヘッダを生成
-      let msg = "<table><tr><th>name</th><th>Lvl</th><th>attack</th><th>defence</th></tr>";
+      let msg = "<table><tr><th>term</th><th>classification</th></tr>";
       for (let i = 0; i < results.length; i++) {
         // 各データを収めた表の列を生成
         msg += "<tr>";
-        msg += "<td>" + results[i].name + "</td>";
-        msg += "<td class='num'>" + results[i].level + "</td>";
-        msg += "<td class='num'>" + results[i].attack + "</td>";
-        msg += "<td class='num'>" + results[i].defence + "</td>";
+        msg += "<td>" + results[i].term + "</td>";
+        msg += "<td class='num'>" + results[i].classification + "</td>";
+
         msg += "</tr>";
       }
       // テーブルのテイラを生成
@@ -84,22 +101,22 @@
 </head>
 
 <body>
-  <h1>mBaaS search</h1>
+  <h1>半導体用語検索</h1>
   <div>
-    <label for="name">name:</label>
-    <input id="name" type="text" placeholder="monster name">
+    <label for="term">用語:</label>
+    <input id="term" type="text" placeholder="検索したい用語">
   </div>
   <div>
-    <label for="level">level:</label>
-    <input id="level" type="number" placeholder="monster level">
+    <label for="classification">分類:</label>
+    <input id="classification" type="text" placeholder="分類">
   </div>
+ 
   <div id="button">
-    <button class="btn" onclick="fetchAll()">Fetch All</button>
+    <button class="btn" onclick="fetchAll()">すべて表示</button>
+    <br>
     <button class="btn" onclick="searchName()">Name</button>
     </br>
-    <button class="btn" onclick="searchLevel_LT()">Level &lt </button>
-    <button class="btn" onclick="searchLevel()">Level</button>
-    <button class="btn" onclick="searchLevel_GT()">Level &gt </button>
+    
   </div>
   <div id="message">message area</div>
 </body>

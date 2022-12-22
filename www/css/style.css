@@ -1,9 +1,9 @@
 /**/
 body {
-  background-color: aqua;
+  background-color: white;
 }
 h1 {
-  background-color: yellow;
+  background-color: white;
 }
 
 label {
@@ -26,7 +26,7 @@ input {
   margin-bottom: 10px;
   font-size: 16pt;
   height: 4ex;
-  width: 5em;
+  width: 6em;
   border-radius: 10px;
   color: white;
   background-color: blue;

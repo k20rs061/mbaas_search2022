@@ -24,55 +24,19 @@
         })
     }
 
-    function searchName() {
-        let TestDataClass = ncmb.DataStore(db);
-        let name = $("#name").val();
-        TestDataClass.equalTo("name", name).fetchAll()
+    function searchTerm() {
+        let semicon = ncmb.DataStore(db);
+        let term = $("#term").val();
+        semicon.equalTo("term", term).fetchAll()
         .then(function(results) {
             showResults(results);
         })
     }
 
-    function searchLevel() {
-        let TestDataClass = ncmb.DataStore(db);
-        let level = parseInt($("#level").val());
-        TestDataClass.equalTo("level", level).fetchAll()
-        .then(function(results) {
-            showResults(results);
-        })
-    }
-
-    function searchLevel_LT() {
-        let TestDataClass = ncmb.DataStore(db);
-        let level_LT = parseInt($("#level").val());
-        TestDataClass.lessThan("level", level_LT).fetchAll()
-        .then(function(results) {
-            showResults(results);
-        })
-    }
-
-    function searchLevel_GT() {
-        let TestDataClass = ncmb.DataStore(db);
-        let level_GT = parseInt($("#level").val());
-        TestDataClass.greaterThan("level", level_GT).fetchAll()
-        .then(function(results) {
-            showResults(results);
-        })
-    }
-
-    function searchattack_LT() {
-        let TestDataClass = ncmb.DataStore(db);
-        let attack_LT = parseInt($("#attack").val());
-        TestDataClass.lessThan("attack", attack_LT).fetchAll()
-        .then(function(results) {
-            showResults(results);
-        })
-    }
-
-    function searchattack_GT() {
-        let TestDataClass = ncmb.DataStore(db);
-        let attack_GT = parseInt($("#attack").val());
-        TestDataClass.greaterThan("attack", attack_GT).fetchAll()
+    function searchClassification() {
+        let semicon = ncmb.DataStore(db);
+        let classification = $("#classification").val();
+        semicon.equalTo("classification", classification).fetchAll()
         .then(function(results) {
             showResults(results);
         })
@@ -84,19 +48,22 @@
 
     function showResults(results) {
       // テーブルのヘッダを生成
-      let msg = "<table><tr><th>term</th><th>classification</th></tr>";
+      let msg = "<table><tr><th>用語</th><th>分類</th><th>解説</th></tr>";
       for (let i = 0; i < results.length; i++) {
         // 各データを収めた表の列を生成
         msg += "<tr>";
         msg += "<td>" + results[i].term + "</td>";
-        msg += "<td class='num'>" + results[i].classification + "</td>";
-
+        msg += "<td>" + results[i].classification + "</td>";
+        msg += "<td>" + results[i].Explanation+ "</td>";
         msg += "</tr>";
       }
       // テーブルのテイラを生成
       msg += "</table>";
       $("#message").html(msg);
     }
+
+
+
   </script>
 </head>
 
@@ -104,7 +71,7 @@
   <h1>半導体用語検索</h1>
   <div>
     <label for="term">用語:</label>
-    <input id="term" type="text" placeholder="検索したい用語">
+    <input id="term" type="text" placeholder="検索したい用語を入力">
   </div>
   <div>
     <label for="classification">分類:</label>
@@ -112,10 +79,12 @@
   </div>
  
   <div id="button">
+    <button class="btn" onclick="searchTerm()">用語検索</button>
+    <br>
+    <button class="btn" onclick="searchClassification()">分類検索</button>
+    </br>
     <button class="btn" onclick="fetchAll()">すべて表示</button>
     <br>
-    <button class="btn" onclick="searchName()">Name</button>
-    </br>
     
   </div>
   <div id="message">message area</div>

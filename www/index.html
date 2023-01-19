@@ -49,10 +49,12 @@
             document.getElementById("image").src = dataUrl;
         }
 
-        function downloadImage() {
-            // ファイル名からファイルを取得
-            var fileName = "FinFET.jpg";
 
+        function downloadImage() {
+            let semicon = ncmb.DataStore(db);
+            let term = $("#term").val();
+            // ファイル名からファイルを取得
+            let fileName = term + ".jpg";
             // ダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName, "blob")
                 .then(function(blob) {
@@ -89,7 +91,7 @@
     <h1>半導体用語検索</h1>
     <div>
         <label for="term">用語:</label>
-        <input id="term" type="text" placeholder="検索したい用語を入力">
+        <input id="term" , type="text" placeholder="検索したい用語を入力">
     </div>
     <div>
         <label for="classification">分類:</label>
